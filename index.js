@@ -1,16 +1,42 @@
-let response = [];
-let occurencesNumber = 2;
+// Parameters
+const itemsPerPage = 5; // Number of items per page of API
+let allRequestedMovies = [];
 let titles = []
 
-function addTitles(items) {
-    response.push(...items);
+
+// Get the collection of data relative of the wished set of urls.
+async function recursiveFetch(url, numberOfItems) {
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const moviesOnePage = data["results"];
+        allRequestedMovies.push(...moviesOnePage);
+        const nextUrl = data["next"];            
+        numberOfItems -= itemsPerPage;
+        console.log("number of items", numberOfItems);
+        
+        if (numberOfItems > 0) {
+            await recursiveFetch(nextUrl, numberOfItems);
+        } else {
+            console.log("Recherche terminée");
+            console.log("test response inside else..", allRequestedMovies.length);
+            return allRequestedMovies;
+        };
+    } catch (err) {
+        console.log(err);
+        document
+            .getElementById("vedette")
+            .textContent = err;
+    };
+};
+
+
+// Includes the data in the HTML
+function createListTitlelement(response) {
+
     titles = response.map(movie => movie.title);
     console.log('titles in addTitles', titles);
-    return titles;
-    };
-        
 
-function createListTitlelement(titles) {
 
     const titlesElement = document.createElement("ul");
 
@@ -20,48 +46,22 @@ function createListTitlelement(titles) {
         titlesElement.appendChild(titleElement);
     }
     
-    document.getElementById("vedette").appendChild(titlesElement); 
+    document.getElementById("vedette").appendChild(titlesElement);
     };
 
+// main function.
+async function feedPage() {
+    try {
+        await recursiveFetch("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score", 7);
+        console.log("test response inside feedPage..", allRequestedMovies.length);
+        createListTitlelement(allRequestedMovies);
+    } catch (e) {
+        console.log("planté");
+    }
+    
+}
 
-
-function recursiveFetch(url) {
-    if (occurencesNumber > 0) {
-        fetch(url)
-        .then(function(res) {
-            if (res.ok) {
-                return res.json();
-            }
-        })
-        .then(function(value) {
-            const items = value["results"];
-            addTitles(items);
-            return value;
-            //return titles;
-        })
-        .then(function(value) {
-            const nextUrl = value["next"];
-            occurencesNumber--;
-            console.log('occurrencesNumber', occurencesNumber);
-            recursiveFetch(nextUrl);
-        })
-        .catch(function(err) {
-            document
-                .getElementById("vedette")
-                .textContent = err;
-        });
-    }else{
-        createListTitlelement(titles);
-    };  
-};
-
-
-recursiveFetch("http://127.0.0.1:8000/api/v1/titles/?sort_by=-imdb_score");
-
-// Get the collection of data relative of the wished set of urls.
-// Extracts targeted data of the collection of data.
-// Includes the data in the HTML
-
+feedPage();
 // Display the movie with the best imdb_score.
 // Display the top of imdb_scores.
 // Display the top of imdb_scores of the category 2.
