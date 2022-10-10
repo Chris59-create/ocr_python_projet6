@@ -9,72 +9,103 @@ const parameters = {
     category3: {categoryName:"Mystery", genreId:9, endPoint: "?sort_by=-imdb_score", firstItem: 0, numberItems: 7},
     category4: {categoryName: "Western", genreId: 11, endPoint: "?sort_by=-imdb_score", firstItem: 0, numberItems: 7}
 }; 
-let allRequestedMovies = [];
-let titles = []
+var allRequestedMovies = [];
+
+
+// Includes for the best movie in HTML
+async function getMovieAllData(justNeededMovies) {
+
+    console.log("getMovies...", justNeededMovies); // test
+
+    for (const movie of justNeededMovies) {
+        
+        try {
+            const response = await fetch(apiUri+movie.id);
+            const movieData = await response.json();
+            console.log(movieData); // test
+            console.log(movieData.title); // test
+            
+            const imageElement = document.createElement("img");
+            imageElement.src = movieData.image_url;
+            const titleElement = document.createElement("h2");
+            titleElement.textContent = movieData.title;
+            const descriptionElement = document.createElement("p");
+            descriptionElement.textContent = movieData.description;
+
+            const sectionBest = document.getElementById("best");
+            sectionBest.appendChild(imageElement);
+            sectionBest.appendChild(titleElement);
+            sectionBest.appendChild(descriptionElement);
+
+
+            
+        }
+        catch (err) {
+            console.log(err);
+            document
+                .getElementById("errors")
+                .textContent = err;
+        }
+        
+    }
+};
 
 
 // Get the collection of data relative of the wished set of urls and items number.
-async function recursiveFetch(url, numberOfItems) {
+async function recursiveFetch(url, numberItems, startNumberItems) {
     try {
         const response = await fetch(url);
         const data = await response.json();
         const moviesOnePage = data["results"];
         allRequestedMovies.push(...moviesOnePage);
         const nextUrl = data["next"];            
-        numberOfItems -= itemsPerPage;
-        console.log("number of items", numberOfItems);
+        numberItems -= itemsPerPage;
+        console.log("number of items", numberItems);
         
-        if (numberOfItems > 0) {
-            await recursiveFetch(nextUrl, numberOfItems);
+        if (numberItems > 0) {
+            await recursiveFetch(nextUrl, numberItems);
         } else {
             console.log("Recherche terminée"); // test
             console.log("Nombre films", allRequestedMovies.length); //test
+            const numberOfItemsToDelete = allRequestedMovies.length-startNumberItems
+            allRequestedMovies.splice(parameters.best.firstItem+1, numberOfItemsToDelete);
             return allRequestedMovies;
         };
 
     } catch (err) {
         console.log(err);
         document
-            .getElementById("vedette")
+            .getElementById("errors")
             .textContent = err;
     };
 };
 
 
-// Includes the data in the HTML
-function createListTitlelement(justNeededMovies, firstItem, numberItems) {
-
-    titles = justNeededMovies.map(movie => movie.title);
-    console.log('titles in addTitles', titles); //test
-
-    const titlesElement = document.createElement("ul");
-
-    for (let i = 0; i < titles.length; i++) {
-        const titleElement = document.createElement("li");
-        titleElement.textContent = titles[i];
-        titlesElement.appendChild(titleElement);
-    }
-    
-    document.getElementById("vedette").appendChild(titlesElement);
-    };
-
 // main function.
 async function feedPage() {
 
     try {
-        await recursiveFetch(apiUri+parameters.best.endPoint, parameters.best.numberItems);
+        await recursiveFetch(apiUri+parameters.best.endPoint, parameters.best.numberItems, parameters.best.numberItems);
         console.log("test response inside feedPage..", allRequestedMovies.length); // test
-        console.log("nbcar deleted", allRequestedMovies.length-parameters.best.numberItems) //test
-        allRequestedMovies.splice(parameters.best.firstItem+1, allRequestedMovies.length-parameters.best.numberItems);
-        createListTitlelement(allRequestedMovies);
-    } catch (e) {
-        console.log("planté"); //test à revoir
+        getMovieAllData(allRequestedMovies);
+    } catch (err) {
+        console.log(e); //test à revoir
+        document
+            .getElementsById("errors")
+            .textContent = err;
     }
 }
 
 feedPage();
-// Display the movie with the best imdb_score.
-// Display the top of imdb_scores.
-// Display the top of imdb_scores of the category 2.
-// Display the top of imdb_scores of the category 3.
-// Display the top of imdb_scores of the category 4.
+
+
+/*
+- get the titles dataset of the requested numbers of movies according criteria
+    a category -> 
+    get all from the needed number of pages
+    splice collection according the needed movies numbers
+- extract id of the movies
+- get the complete data set of each requested movie get with the movie url.
+- loop to create the html elements for each movie
+    can be a single function for all cases (what about the modal window ?)
+*/
