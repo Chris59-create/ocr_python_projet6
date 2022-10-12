@@ -3,35 +3,37 @@ const itemsPerPage = 5; // Number of items per page of API
 const apiUri = 'http://127.0.0.1:8000/api/v1/titles/'; // Root of the API url
 // {id: {categorieName : "", genreId : x,endPoint: "",firstItem: index, numberItems: nb}}}
 const parameters = [
-    { htmlId: "best", categoryName: "Meilleur film", genreId: "All", endPoint: '?sort_by=-imdb_score', firstItem: 0, numberItems: 1 },
-    { htmlId: "category1", categoryName: "Films les mieux notés", genreId: "All", endPoint: '?sort_by=-imdb_score', firstItem: 1, numberItems: 8 },
-    { htmlId: "category2", categoryName: "Animation", genreId: 18, endPoint: "?sort_by=-imdb_score", firstItem: 0, numberItems: 7 },
-    { htmlId: "category3", categoryName: "Mystery", genreId: 9, endPoint: "?sort_by=-imdb_score", firstItem: 0, numberItems: 7 },
-    { htmlId: "category4", categoryName: "Western", genreId: 11, endPoint: "?sort_by=-imdb_score", firstItem: 0, numberItems: 7 }
+    { htmlId: "best", categoryName: "Meilleur film", endPoint: '?sort_by=-imdb_score', firstItem: 0, numberItems: 1 },
+    { htmlId: "category1", categoryName: "Films les mieux notés", endPoint: '?sort_by=-imdb_score', firstItem: 1, numberItems: 8 },
+    { htmlId: "category2", categoryName: "Animation", endPoint: "?genre=animation", firstItem: 0, numberItems: 7 },
+    { htmlId: "category3", categoryName: "Mystery", endPoint: "?genre=mystery", firstItem: 0, numberItems: 7 },
+    { htmlId: "category4", categoryName: "Western", endPoint: "?genre=western", firstItem: 0, numberItems: 7 }
 ];
-var allRequestedMovies = [];
 
 
 // Includes for the best movie in HTML
-async function getMovieAllData(justNeededMovies, i) {
+async function getMoviesAllData(movies, i) {
 
-    console.log("getMovies...", justNeededMovies); // test
+    console.log("getMovies...", movies); // test
 
-    for (const movie of justNeededMovies) {
+    const blocElement = document.getElementById(parameters[i].htmlId);
+    const categoryElement = document.createElement("ul");
+    categoryElement.setAttribute("style", "list-style-type:none"); // peut-être à mettre dans le CSS
+    categoryElement.textContent = parameters[i].categoryName;
+    console.log("categoryElement", categoryElement);
+    blocElement.appendChild(categoryElement);
 
-        const blocElement = document.getElementById(parameters[i].htmlId);
-        const categoryElement = document.createElement("ul");
-        categoryElement.setAttribute("style", "list-style-type:none"); // peut-être )à mettre dans le CSS
-        categoryElement.textContent = parameters[i].categoryName;
-        blocElement.appendChild(categoryElement);
+    for (const index in movies) {
 
+        const movieId = movies[index].id;
 
         try {
-            const response = await fetch(apiUri + movie.id);
+            const response = await fetch(apiUri + movieId);
             const movieData = await response.json();
             console.log("MovieData : ", movieData); // test
             console.log(movieData.duration); // test
 
+            // Create and append Elements for the foreground
             const imageElement = document.createElement("img");
             imageElement.src = (movieData.image_url ? movieData.image_url : "") ;
             const titleElement = document.createElement("h2");
@@ -44,6 +46,8 @@ async function getMovieAllData(justNeededMovies, i) {
             movieElement.append(imageElement, titleElement, descriptionElement);
 
             categoryElement.appendChild(movieElement);
+
+            //Create and append in the foreground Elements for the modal
 
             const modalElements = document.createElement("div");
 
@@ -84,8 +88,7 @@ async function getMovieAllData(justNeededMovies, i) {
             movieElement.appendChild(modalElements);
 
 
-        }
-        catch (err) {
+        } catch (err) {
             console.log(err);
             document
                 .getElementById("errors")
@@ -97,7 +100,8 @@ async function getMovieAllData(justNeededMovies, i) {
 
 
 // Get the collection of data relative of the wished set of urls and items number.
-async function recursiveFetch(url, firstItem, numberItems, startNumberItems) {
+async function recursiveFetch(url, allRequestedMovies, numberItems) {
+
     try {
         const response = await fetch(url);
         const data = await response.json();
@@ -105,54 +109,51 @@ async function recursiveFetch(url, firstItem, numberItems, startNumberItems) {
         allRequestedMovies.push(...moviesOnePage);
         const nextUrl = data["next"];
         numberItems -= itemsPerPage;
-        console.log("number of items", numberItems);
 
         if (numberItems > 0) {
-            await recursiveFetch(nextUrl, numberItems);
+            await recursiveFetch(nextUrl, allRequestedMovies, numberItems);
         } else {
-            console.log("Recherche terminée"); // test
-            console.log("Nombre films", allRequestedMovies.length); //test
-            const numberOfItemsToDelete = allRequestedMovies.length - startNumberItems
-            allRequestedMovies.splice(firstItem + 1, numberOfItemsToDelete);
-            return allRequestedMovies;
+            console.log("else numberItems", numberItems);
+            await allRequestedMovies.splice(numberItems);
         };
-
     } catch (err) {
         console.log(err);
         document
             .getElementById("errors")
             .textContent = err;
     };
+    return allRequestedMovies;
 };
 
 
 // main function.
 async function feedPage() {
 
-    try {
-        for (let i = 0; i <= parameters.length; i += 1) {
-            await recursiveFetch(apiUri + parameters[i].endPoint, parameters[0].firstItem, parameters[i].numberItems, parameters[i].numberItems);
-            console.log("test response inside feedPage..", allRequestedMovies.length); // test
-            getMovieAllData(allRequestedMovies, i);
+    console.log("parameters.length", parameters.length); // test
+
+    for (let i = 0; i < parameters.length; i++) {
+
+        try {
+            let allRequestedMovies = [];
+            const justNeededMovies = await recursiveFetch(apiUri + parameters[i].endPoint, allRequestedMovies, parameters[i].numberItems);
+            
+            console.log("feedpage try firstItem, i",parameters[i].firstItem, i);
+
+            if (parameters[i].firstItem === 1) {
+                console.log("feedPage if firstItem", parameters[i].firstItem)
+                const movieToDelete = justNeededMovies.shift();
+                console.log("movieToDelete", movieToDelete);
+            };
+
+            await getMoviesAllData(justNeededMovies, i);
+        } catch (err) {
+            console.log(err);
+            document
+                .getElementById("errors")
+                .textContent = err;
         }
-    } catch (err) {
-        console.log(err); //test à revoir
-        document
-            .getElementsById("errors")
-            .textContent = err;
     }
 }
 
+
 feedPage();
-
-
-/*
-- get the titles dataset of the requested numbers of movies according criteria
-    a category -> 
-    get all from the needed number of pages
-    splice collection according the needed movies numbers
-- extract id of the movies
-- get the complete data set of each requested movie get with the movie url.
-- loop to create the html elements for each movie
-    can be a single function for all cases (what about the modal window ?)
-*/
