@@ -5,9 +5,9 @@ const apiUri = 'http://127.0.0.1:8000/api/v1/titles/'; // Root of the API url
 const parameters = [
     { htmlId: "best", categoryName: "Meilleur film", endPoint: '?sort_by=-imdb_score', firstItem: 0, numberItems: 1 },
     { htmlId: "category1", categoryName: "Films les mieux notés", endPoint: '?sort_by=-imdb_score', firstItem: 1, numberItems: 8 },
-    { htmlId: "category2", categoryName: "Animation", endPoint: "?genre=animation", firstItem: 0, numberItems: 7 },
-    { htmlId: "category3", categoryName: "Mystery", endPoint: "?genre=mystery", firstItem: 0, numberItems: 7 },
-    { htmlId: "category4", categoryName: "Western", endPoint: "?genre=western", firstItem: 0, numberItems: 7 }
+    { htmlId: "category2", categoryName: "Animation", endPoint: '?genre=animation&sort_by=-imdb_score', firstItem: 0, numberItems: 7 },
+    { htmlId: "category3", categoryName: "Mystery", endPoint: '?genre=mystery&sort_by=-imdb_score', firstItem: 0, numberItems: 7 },
+    { htmlId: "category4", categoryName: "Western", endPoint: '?genre=western&sort_by=-imdb_score', firstItem: 0, numberItems: 7 }
 ];
 
 
@@ -17,6 +17,7 @@ async function getMoviesAllData(movies, i) {
     console.log("getMovies...", movies); // test
 
     const blocElement = document.getElementById(parameters[i].htmlId);
+    console.log("htmlId", parameters[i].htmlId)
     const categoryElement = document.createElement("ul");
     categoryElement.setAttribute("style", "list-style-type:none"); // peut-être à mettre dans le CSS
     categoryElement.textContent = parameters[i].categoryName;
