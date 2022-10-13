@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<title>JustStreamIt</title> <link rel="stylesheet" href="styles.css">
-		<script type="module" src="index.js"></script>
+		<script type="module" src="index.js" defer></script>
 	</head>
 	<body>
 		<header>
@@ -14,7 +14,8 @@
 
 		</nav>
 		<section id="best">
-			<button class="btn btn-open">+ d'infos</button>
+			<button id="btnOpenModal">+ d'infos</button>
+			
 			
 		</section>
 	
@@ -27,14 +28,26 @@
 	
 			<div id="category3">
 			</div>
-
+@
 			<div id="category4" >
 			</div>
 			<div id="errors">
 				
 			</div>
 		</section>
-		<section class="modal hidden">
+		<section>
+
+		<!-- The Modal -->
+		<div id="myModal" class="modal">
+
+			
+			<!-- Modal content -->
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p>Some text in the Modal..</p>
+			</div>
+
+		</div>
 		</section>
 		
 	</body>

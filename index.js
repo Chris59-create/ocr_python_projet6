@@ -1,7 +1,7 @@
 // Parameters
 const itemsPerPage = 5; // Number of items per page of API
 const apiUri = 'http://127.0.0.1:8000/api/v1/titles/'; // Root of the API url
-// {id: {categorieName : "", genreId : x,endPoint: "",firstItem: index, numberItems: nb}}}
+// {id: {categorieName : "", endPoint: "", firstItem: index, numberItems: nb}}}
 const parameters = [
     { htmlId: "best", categoryName: "Meilleur film", endPoint: '?sort_by=-imdb_score', firstItem: 0, numberItems: 1 },
     { htmlId: "category1", categoryName: "Films les mieux notés", endPoint: '?sort_by=-imdb_score', firstItem: 1, numberItems: 8 },
@@ -11,17 +11,13 @@ const parameters = [
 ];
 
 
-// Includes for the best movie in HTML
+//  Create the HTML elements
 async function getMoviesAllData(movies, i) {
 
-    console.log("getMovies...", movies); // test
-
     const blocElement = document.getElementById(parameters[i].htmlId);
-    console.log("htmlId", parameters[i].htmlId)
     const categoryElement = document.createElement("ul");
     categoryElement.setAttribute("style", "list-style-type:none"); // peut-être à mettre dans le CSS
     categoryElement.textContent = parameters[i].categoryName;
-    console.log("categoryElement", categoryElement);
     blocElement.appendChild(categoryElement);
 
     for (const index in movies) {
@@ -31,8 +27,6 @@ async function getMoviesAllData(movies, i) {
         try {
             const response = await fetch(apiUri + movieId);
             const movieData = await response.json();
-            console.log("MovieData : ", movieData); // test
-            console.log(movieData.duration); // test
 
             // Create and append Elements for the foreground
             const imageElement = document.createElement("img");
@@ -48,7 +42,7 @@ async function getMoviesAllData(movies, i) {
 
             categoryElement.appendChild(movieElement);
 
-            //Create and append in the foreground Elements for the modal
+            //Create and append in the foreground elements for the modal
 
             const modalElements = document.createElement("div");
 
@@ -74,7 +68,6 @@ async function getMoviesAllData(movies, i) {
             longDescriptionElement.textContent = "Description : " + (movieData.long_description ? movieData.long_description : "");
 
             modalElements.append(
-                longDescriptionElement,
                 typeElement,
                 releaseDateElement,
                 rateElement,
@@ -83,7 +76,8 @@ async function getMoviesAllData(movies, i) {
                 actorsElement,
                 durationElement,
                 countriesElement,
-                boxOfficeElement
+                boxOfficeElement,
+                longDescriptionElement
             );
 
             movieElement.appendChild(modalElements);
@@ -100,7 +94,7 @@ async function getMoviesAllData(movies, i) {
 };
 
 
-// Get the collection of data relative of the wished set of urls and items number.
+// Build the collection of data relative of the wished set of urls and items number.
 async function recursiveFetch(url, allRequestedMovies, numberItems) {
 
     try {
@@ -114,7 +108,6 @@ async function recursiveFetch(url, allRequestedMovies, numberItems) {
         if (numberItems > 0) {
             await recursiveFetch(nextUrl, allRequestedMovies, numberItems);
         } else {
-            console.log("else numberItems", numberItems);
             await allRequestedMovies.splice(numberItems);
         };
     } catch (err) {
@@ -129,21 +122,19 @@ async function recursiveFetch(url, allRequestedMovies, numberItems) {
 
 // main function.
 async function feedPage() {
-
-    console.log("parameters.length", parameters.length); // test
-
+/* 
+- Iterate through the categories to get their parameters defined in the array parameters;
+- Call the function to build according to them the set of selected movies for each category;
+- Call the function with this set as argument and the index of the category to create the required elements in html.
+*/
     for (let i = 0; i < parameters.length; i++) {
 
         try {
             let allRequestedMovies = [];
             const justNeededMovies = await recursiveFetch(apiUri + parameters[i].endPoint, allRequestedMovies, parameters[i].numberItems);
-            
-            console.log("feedpage try firstItem, i",parameters[i].firstItem, i);
 
             if (parameters[i].firstItem === 1) {
-                console.log("feedPage if firstItem", parameters[i].firstItem)
                 const movieToDelete = justNeededMovies.shift();
-                console.log("movieToDelete", movieToDelete);
             };
 
             await getMoviesAllData(justNeededMovies, i);
@@ -156,5 +147,30 @@ async function feedPage() {
     }
 }
 
-
 feedPage();
+
+// Get the modal
+var modal = document.getElementById("myModal");
+
+// Get the button that opens the modal
+var btn = document.getElementById("btnOpenModal");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
