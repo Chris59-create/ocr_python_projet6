@@ -34,11 +34,14 @@ async function getMoviesAllData(movies, i) {
 
             // Create and append Elements for the foreground
             const imageElement = document.createElement("img");
-            imageElement.src = (movieData.image_url ? movieData.image_url : "") ;
+            imageElement.src = (movieData.image_url ? movieData.image_url : "");
+            imageElement.onclick = function() {
+                modal.style.display = "block";
+                };
             const titleElement = document.createElement("h2");
-            titleElement.textContent = (movieData.title ? movieData.title : "") ;
+            titleElement.textContent = (movieData.title ? movieData.title : "");
             const descriptionElement = document.createElement("p");
-            descriptionElement.textContent = (movieData.description ? movieData.description : "") ;
+            descriptionElement.textContent = (movieData.description ? movieData.description : "");
 
             const movieElement = document.createElement("li");
 
@@ -49,6 +52,7 @@ async function getMoviesAllData(movies, i) {
             //Create and append in the foreground elements for the modal
 
             const modalElements = document.createElement("div");
+            modalElements.setAttribute("class", "hidden");
 
             const typeElement = document.createElement("p");
             typeElement.textContent = "Genre(s): " + (movieData.genres ? movieData.genres : "" );
@@ -86,15 +90,17 @@ async function getMoviesAllData(movies, i) {
 
             movieElement.appendChild(modalElements);
 
-            // Create the button "openModal"
-            const openModal = document.createElement("button");
-            openModal.setAttribute("id", "openModal");
-            // openModal.setAttribute("type", "button");
-            openModal.onclick = function() {
+            // Create the button "openModal" for the best movie block
+            if (i === 0) {
+                const openModal = document.createElement("button");
+                openModal.setAttribute("id", "openModal");
+                // openModal.setAttribute("type", "button");
+                openModal.onclick = function() {
                 modal.style.display = "block";
-            };
-            openModal.textContent = "+ d'infos"
-            movieElement.appendChild(openModal);
+                };
+                openModal.textContent = "+ d'infos"
+                movieElement.appendChild(openModal);
+                }
 
             // When the user clicks on <span> (x), close the modal
             span.onclick = function() {

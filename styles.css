@@ -1,6 +1,10 @@
+.hidden {
+  display: none; /* Hidden by default */
+}
+
 #openModal {
     width: 5em;
-    height: 5em;
+    height: 2em;
 }
 
 /* The Modal (background) */
