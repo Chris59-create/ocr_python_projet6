@@ -16,20 +16,8 @@ async function getMoviesAllData(movies, i) {
 
     const blocElement = document.getElementById(parameters[i].htmlId);
 
-    // Create the button "openModal"
-    const openModal = document.createElement("button");
-    openModal.setAttribute("id", "openModal");
-    // openModal.setAttribute("type", "button");
-    openModal.onclick = function() {
-        modal.style.display = "block";
-    };
-    openModal.textContent = "+ d'infos"
-    blocElement.appendChild(openModal);
+    
 
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-    modal.style.display = "none";
-}
 
     const categoryElement = document.createElement("ul");
     categoryElement.setAttribute("style", "list-style-type:none"); // peut-être à mettre dans le CSS
@@ -97,6 +85,27 @@ async function getMoviesAllData(movies, i) {
             );
 
             movieElement.appendChild(modalElements);
+
+            // Create the button "openModal"
+            const openModal = document.createElement("button");
+            openModal.setAttribute("id", "openModal");
+            // openModal.setAttribute("type", "button");
+            openModal.onclick = function() {
+                modal.style.display = "block";
+            };
+            openModal.textContent = "+ d'infos"
+            movieElement.appendChild(openModal);
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = function() {
+            modal.style.display = "none";
+            }
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
 
 
         } catch (err) {
@@ -167,26 +176,10 @@ feedPage();
 
 // Get the modal
 var modal = document.getElementById("myModal");
-
+/*
 // Get the button that opens the modal
-var btn = document.getElementById("openModal");
+var btn = document.getElementById("openModal");*/
 
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks on the button, open the modal
-btn.onclick = function() {
-    modal.style.display = "block";
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
