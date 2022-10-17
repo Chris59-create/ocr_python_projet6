@@ -143,8 +143,11 @@ async function getMoviesAllData(movies, i) {
             // When the user clicks anywhere outside of the modal, close it
             window.onclick = function(event) {
                 if (event.target == modal) {
+                    const toRemove = document.querySelector("#test p");
+                    console.log(toRemove.innerText)
+                    toRemove.remove();
                     modal.style.display = "none";
-                }
+                }I
             }
 
 
