@@ -3,18 +3,15 @@ const itemsPerPage = 5; // Number of items per page of API
 const apiUri = 'http://127.0.0.1:8000/api/v1/titles/'; // Root of the API url
 // {id: {categorieName : "", endPoint: "", firstItem: index, numberItems: nb}}}
 const parameters = [
-    { htmlId: "best", categoryName: "Meilleur film", endPoint: '?sort_by=-imdb_score', firstItem: 0, numberItems: 1 },
+    { htmlId: "best", categoryName: "En vedette", endPoint: '?sort_by=-imdb_score', firstItem: 0, numberItems: 1 },
     { htmlId: "category1", categoryName: "Films les mieux notés", endPoint: '?sort_by=-imdb_score', firstItem: 1, numberItems: 8 },
     { htmlId: "category2", categoryName: "Animation", endPoint: '?genre=animation&sort_by=-imdb_score', firstItem: 0, numberItems: 7 },
     { htmlId: "category3", categoryName: "Mystery", endPoint: '?genre=mystery&sort_by=-imdb_score', firstItem: 0, numberItems: 7 },
     { htmlId: "category4", categoryName: "Western", endPoint: '?genre=western&sort_by=-imdb_score', firstItem: 0, numberItems: 7 }
 ];
 
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
+var modal = document.getElementById("myModal"); // Get the modal
+var span = document.getElementsByClassName("close")[0]; // Get the <span> element that closes the modal
 
 //  Create the HTML elements
 async function getMoviesAllData(movies, i) {
@@ -38,25 +35,30 @@ async function getMoviesAllData(movies, i) {
             const imageElement = document.createElement("img");
             imageElement.classList.add("forModal");
             imageElement.src = (movieData.image_url ? movieData.image_url : "");
+
             // To change when open function created
+            // open the modal onclock on image
             imageElement.onclick = function() {
-                const test = document.getElementById("test"); //test
-                const testText = document.createElement("p"); // test
-                testText.innerText = testTextMain.innerText;
-                test.appendChild(testText); // Test
+                const containerElement = document.getElementById("container");
+                const newDiv = document.createElement("div")
+                newDiv.setAttribute("id", "temporary");
+                for (let index = 0; index < forModal.length; index++) {
+                    let modalElement = forModal[index].cloneNode(true);
+                    modalElement.classList.remove("hidden"); 
+                    newDiv.appendChild(modalElement);
+                }
+                containerElement.appendChild(newDiv);
                 modal.style.display = "block";
             };
+
             const titleElement = document.createElement("h2");
-            imageElement.classList.add("forModal");
+            titleElement.classList.add("forModal");
             titleElement.innerText = (movieData.title ? movieData.title : "");
             const descriptionElement = document.createElement("p");
-            imageElement.classList.add("forModal");
             descriptionElement.innerText = (movieData.description ? movieData.description : "");
 
             const movieElement = document.createElement("li");
-
-            
-
+           
             //Create and append in the foreground elements for the modal
 
             const typeElement = document.createElement("p");
@@ -89,9 +91,6 @@ async function getMoviesAllData(movies, i) {
             const longDescriptionElement = document.createElement("p");
             longDescriptionElement.classList.add("forModal", "hidden");
             longDescriptionElement.innerText = "Description : " + (movieData.long_description ? movieData.long_description : "");
-            const testTextMain = document.createElement("p"); // Test
-            testTextMain.innerText = "test de transfert de texte dans modal" + " " + i; // Text
-
 
             movieElement.append(imageElement,
                 titleElement, 
@@ -106,12 +105,11 @@ async function getMoviesAllData(movies, i) {
                 countriesElement,
                 boxOfficeElement,
                 longDescriptionElement,
-                testTextMain // Test
-            );
+                );
 
             categoryElement.appendChild(movieElement);
 
-            const forModal = document.getElementsByClassName("forModal");
+            const forModal = Array.from(movieElement.getElementsByClassName("forModal"));
             console.log(forModal);
 
             // Create the button "openModal" for the best movie block
@@ -121,33 +119,33 @@ async function getMoviesAllData(movies, i) {
                 btnToModal.innerText = "+ d'infos"
                 movieElement.appendChild(btnToModal);
                
-                // openModal.setAttribute("type", "button");
                 btnToModal.onclick = function() {
-                    const test = document.getElementById("test"); //test
-                    const testText = document.createElement("p"); // test
-                    testText.innerText = testTextMain.innerText;
-                    test.appendChild(testText); // Test
-                    //alert("button is clicked");
+                    const containerElement = document.getElementById("container");
+                    const newDiv = document.createElement("div")
+                    newDiv.setAttribute("id", "temporary");
+                    for (let index = 0; index < forModal.length; index++) {
+                        let modalElement = forModal[index].cloneNode(true);
+                        modalElement.classList.remove("hidden"); 
+                        newDiv.appendChild(modalElement);
+                    }
+                    containerElement.appendChild(newDiv);
                     modal.style.display = "block";
                 } ;
-                
             }
 
             // When the user clicks on <span> (x), close the modal
             span.onclick = function() {
-                const toRemove = document.querySelector("#test p");
-                console.log(toRemove.innerText)
+                const toRemove = document.getElementById("temporary");
                 toRemove.remove();
                 modal.style.display = "none";
             }
             // When the user clicks anywhere outside of the modal, close it
             window.onclick = function(event) {
                 if (event.target == modal) {
-                    const toRemove = document.querySelector("#test p");
-                    console.log(toRemove.innerText)
+                    const toRemove = document.getElementById("temporary");
                     toRemove.remove();
                     modal.style.display = "none";
-                }I
+                }
             }
 
 
@@ -215,7 +213,7 @@ async function feedPage() {
     }
 }
 
-feedPage();
+feedPage(); // Call the main function
 
 
 
