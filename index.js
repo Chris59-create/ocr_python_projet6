@@ -17,11 +17,13 @@ var span = document.getElementsByClassName("close")[0]; // Get the <span> elemen
 async function getMoviesAllData(movies, i) {
 
     const blocElement = document.getElementById(parameters[i].htmlId);
- 
+    
+    const categoryTitle = document.createElement("h2");
+    categoryTitle.innerText = parameters[i].categoryName;
     const categoryElement = document.createElement("ul");
     categoryElement.setAttribute("style", "list-style-type:none"); // peut-être à mettre dans le CSS
-    categoryElement.innerText = parameters[i].categoryName;
-    blocElement.appendChild(categoryElement);
+    
+    blocElement.append(categoryTitle, categoryElement);
 
     for (const index in movies) {
 
@@ -35,6 +37,9 @@ async function getMoviesAllData(movies, i) {
             const imageElement = document.createElement("img");
             imageElement.classList.add("forModal");
             imageElement.src = (movieData.image_url ? movieData.image_url : "");
+            imageElement.setAttribute("onerror", "this.onerror=null; this.src='img/pochette_indisponible.jpeg'");
+            imageElement.setAttribute("title", "Pochette du film");
+
 
             // To change when open function created
             // open the modal onclock on image
@@ -214,6 +219,3 @@ async function feedPage() {
 }
 
 feedPage(); // Call the main function
-
-
-
