@@ -21,11 +21,30 @@ async function getMoviesAllData(movies, i) {
     
     const categoryTitle = document.createElement("h2");
     categoryTitle.innerText = parameters[i].categoryName;
+    
+
+  
     const categoryElement = document.createElement("ul");
     categoryElement.classList.add("scroll-category");
     categoryElement.setAttribute("style", "list-style-type:none"); // peut-être à mettre dans le CSS
     
-    blocElement.append(categoryTitle, categoryElement);
+    if (i != 0) {
+        const leftButton = document.createElement("button");
+        leftButton.classList.add("left");
+        leftButton.setAttribute("onclick", "leftScroll()");
+        leftButton.innerText = "Gauche";
+        const rightButton = document.createElement("button");
+        rightButton.classList.add("right");
+        leftButton.setAttribute("onclick", "rightScroll()");
+        rightButton.innerText = "Droite";
+
+        blocElement.append(categoryTitle, leftButton, categoryElement, rightButton);
+    } else {
+        blocElement.append(categoryTitle, categoryElement);
+    }
+
+   
+    
 
     for (const index in movies) {
 
@@ -135,7 +154,6 @@ async function getMoviesAllData(movies, i) {
                     newDiv.setAttribute("id", "temporary");
                     for (let index = 0; index < forModal.length; index++) {
                         let modalElement = forModal[index].cloneNode(true);
-                        modalElement.classList.remove("hidden"); 
                         newDiv.appendChild(modalElement);
                     }
                     containerElement.appendChild(newDiv);

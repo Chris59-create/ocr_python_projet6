@@ -2,8 +2,36 @@
   display: none;
 }
 
+.modal-content .onlyForModal {
+  display: block;
+}
+
 .categories .forBest {
   display: none;
+}
+.categories .scroll-category {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+.categories .cover {
+  padding: 0px 30px;
+  position: relative;
+}
+.categories .left {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.categories .right {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 /* Modal*/
