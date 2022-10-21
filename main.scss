@@ -1,7 +1,14 @@
-.hidden {
-  display: none; /* Hidden by default */
+.onlyForModal {
+  display: none;
+}
+.categories {
+  .forBest {
+    display: none;
+  }
 }
 
+
+/* Modal*/
 #openModal {
     width: 5em;
     height: 2em;

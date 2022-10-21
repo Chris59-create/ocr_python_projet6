@@ -10,6 +10,7 @@ const parameters = [
     { htmlId: "category4", categoryName: "Western", endPoint: '?genre=western&sort_by=-imdb_score', firstItem: 0, numberItems: 7 }
 ];
 
+// Initialize the modal and the its close button
 var modal = document.getElementById("myModal"); // Get the modal
 var span = document.getElementsByClassName("close")[0]; // Get the <span> element that closes the modal
 
@@ -21,6 +22,7 @@ async function getMoviesAllData(movies, i) {
     const categoryTitle = document.createElement("h2");
     categoryTitle.innerText = parameters[i].categoryName;
     const categoryElement = document.createElement("ul");
+    categoryElement.classList.add("scroll-category");
     categoryElement.setAttribute("style", "list-style-type:none"); // peut-être à mettre dans le CSS
     
     blocElement.append(categoryTitle, categoryElement);
@@ -34,6 +36,8 @@ async function getMoviesAllData(movies, i) {
             const movieData = await response.json();
 
             // Create and append Elements for the foreground
+            // Class "formodal" helps to list the elements to pass to the modal (js not css need)
+            // Class notForCategories helps to manage the visibility or not of elements in categories (css)
             const imageElement = document.createElement("img");
             imageElement.classList.add("forModal");
             imageElement.src = (movieData.image_url ? movieData.image_url : "");
@@ -41,15 +45,13 @@ async function getMoviesAllData(movies, i) {
             imageElement.setAttribute("title", "Pochette du film");
 
 
-            // To change when open function created
-            // open the modal onclock on image
+            // open the modal when click on image
             imageElement.onclick = function() {
                 const containerElement = document.getElementById("container");
                 const newDiv = document.createElement("div")
                 newDiv.setAttribute("id", "temporary");
                 for (let index = 0; index < forModal.length; index++) {
                     let modalElement = forModal[index].cloneNode(true);
-                    modalElement.classList.remove("hidden"); 
                     newDiv.appendChild(modalElement);
                 }
                 containerElement.appendChild(newDiv);
@@ -57,44 +59,46 @@ async function getMoviesAllData(movies, i) {
             };
 
             const titleElement = document.createElement("h2");
-            titleElement.classList.add("forModal");
+            titleElement.classList.add("forModal", "forBest");
             titleElement.innerText = (movieData.title ? movieData.title : "");
             const descriptionElement = document.createElement("p");
+            descriptionElement.classList.add("forBest");
             descriptionElement.innerText = (movieData.description ? movieData.description : "");
 
             const movieElement = document.createElement("li");
+            movieElement.classList.add("movie");
            
             //Create and append in the foreground elements for the modal
 
             const typeElement = document.createElement("p");
-            typeElement.classList.add("forModal", "hidden");
+            typeElement.classList.add("forModal", "onlyForModal");
             typeElement.innerText = "Genre(s): " + (movieData.genres ? movieData.genres : "" );
             const releaseDateElement = document.createElement("p");
-            releaseDateElement.classList.add("forModal", "hidden");
+            releaseDateElement.classList.add("forModal", "onlyForModal");
             releaseDateElement.innerText = "Année: " + (movieData.year ? movieData.year : "");
             const rateElement = document.createElement("p");
-            rateElement.classList.add("forModal", "hidden");
+            rateElement.classList.add("forModal", "onlyForModal");
             rateElement.innerText = "Evaluation: " + (movieData.rated ? movieData.rated: "");
             const imdbElement = document.createElement("p");
-            imdbElement.classList.add("forModal", "hidden");
+            imdbElement.classList.add("forModal", "onlyForModal");
             imdbElement.innerText = "Imdb_score: " + (movieData.imdb_score ? movieData.imdb_score : "");
             const directorElement = document.createElement("p");
-            directorElement.classList.add("forModal", "hidden");
+            directorElement.classList.add("forModal", "onlyForModal");
             directorElement.innerText = "Réalisateur(s): " + (movieData.directors ? movieData.directors : "");
             const actorsElement = document.createElement("p");
-            actorsElement.classList.add("forModal", "hidden");
+            actorsElement.classList.add("forModal", "onlyForModal");
             actorsElement.innerText = "Acteurs: " + (movieData.actors ? movieData.actors : "");
             const durationElement = document.createElement("p");
-            durationElement.classList.add("forModal", "hidden");
+            durationElement.classList.add("forModal", "onlyForModal");
             durationElement.innerText = "Durée: " + (movieData.duration ? movieData.duration + "mn" : "");
             const countriesElement = document.createElement("p");
-            countriesElement.classList.add("forModal", "hidden");
+            countriesElement.classList.add("forModal", "onlyForModal");
             countriesElement.innerText = "Pays: " + (movieData.countries ? movieData.countries : "");
             const boxOfficeElement = document.createElement("p");
-            boxOfficeElement.classList.add("forModal", "hidden");
+            boxOfficeElement.classList.add("forModal", "onlyForModal");
             boxOfficeElement.innerText = "Box office: " + (movieData.worldwide_gross_income ? movieData.worldwide_gross_income + "$" : "");
             const longDescriptionElement = document.createElement("p");
-            longDescriptionElement.classList.add("forModal", "hidden");
+            longDescriptionElement.classList.add("forModal", "onlyForModal");
             longDescriptionElement.innerText = "Description : " + (movieData.long_description ? movieData.long_description : "");
 
             movieElement.append(imageElement,
@@ -113,7 +117,8 @@ async function getMoviesAllData(movies, i) {
                 );
 
             categoryElement.appendChild(movieElement);
-
+            
+            // List the elements to pass to the modal
             const forModal = Array.from(movieElement.getElementsByClassName("forModal"));
             console.log(forModal);
 
