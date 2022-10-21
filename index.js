@@ -10,6 +10,16 @@ const parameters = [
     { htmlId: "category4", categoryName: "Western", endPoint: '?genre=western&sort_by=-imdb_score', firstItem: 0, numberItems: 7 }
 ];
 
+//Scroll functions for the scroll buttons of the categories
+function leftScroll() {
+    const left = document.querySelector(".scroll-images");
+    left.scrollBy(200, 0);
+  }
+  function rightScroll() {
+    const right = document.querySelector(".scroll-images");
+    right.scrollBy(-200, 0);
+  }
+
 // Initialize the modal and the its close button
 var modal = document.getElementById("myModal"); // Get the modal
 var span = document.getElementsByClassName("close")[0]; // Get the <span> element that closes the modal
