@@ -13,9 +13,19 @@
   width: 100%;
   height: auto;
   display: flex;
+  flex-direction: row;
   flex-wrap: nowrap;
-  overflow-x: auto;
+  overflow-x: scroll;
   overflow-y: hidden;
+  scroll-behavior: smooth;
+}
+.categories ::-webkit-scrollbar {
+  width: 5px;
+  height: 8px;
+  background-color: #aaa;
+}
+.categories ::-webkit-scrollbar-thumb {
+  background-color: black;
 }
 .categories .cover {
   padding: 0px 30px;
@@ -25,13 +35,18 @@
   position: absolute;
   left: 0;
   top: 50%;
-  transform: translateY(-50%);
+  /*transform: translateY(-50%);*/
 }
 .categories .right {
   position: absolute;
   right: 0;
   top: 50%;
-  transform: translateY(-50%);
+  /*transform: translateY(-50%);*/
+}
+.categories .movie {
+  width: 200px;
+  margin: px;
+  overflow: hidden;
 }
 
 /* Modal*/

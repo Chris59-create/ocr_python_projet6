@@ -7,18 +7,8 @@ const parameters = [
     { htmlId: "category1", categoryName: "Films les mieux notés", endPoint: '?sort_by=-imdb_score', firstItem: 1, numberItems: 8 },
     { htmlId: "category2", categoryName: "Animation", endPoint: '?genre=animation&sort_by=-imdb_score', firstItem: 0, numberItems: 7 },
     { htmlId: "category3", categoryName: "Mystery", endPoint: '?genre=mystery&sort_by=-imdb_score', firstItem: 0, numberItems: 7 },
-    { htmlId: "category4", categoryName: "Western", endPoint: '?genre=western&sort_by=-imdb_score', firstItem: 0, numberItems: 7 }
+    { htmlId: "category4", categoryName: "Western", endPoint: '?genre=western&sort_by=-imdb_score', firstItem: 0, numberItems: 14 }
 ];
-
-//Scroll functions for the scroll buttons of the categories
-function leftScroll() {
-    const left = document.querySelector(".scroll-images");
-    left.scrollBy(200, 0);
-  }
-  function rightScroll() {
-    const right = document.querySelector(".scroll-images");
-    right.scrollBy(-200, 0);
-  }
 
 // Initialize the modal and the its close button
 var modal = document.getElementById("myModal"); // Get the modal
@@ -36,26 +26,34 @@ async function getMoviesAllData(movies, i) {
   
     const categoryElement = document.createElement("ul");
     categoryElement.classList.add("scroll-category");
-    categoryElement.setAttribute("style", "list-style-type:none"); // peut-être à mettre dans le CSS
     
+    // Create the left and right scroll buttons for the categories.
     if (i != 0) {
         const leftButton = document.createElement("button");
         leftButton.classList.add("left");
-        leftButton.setAttribute("onclick", "leftScroll()");
+        leftButton.onclick = function() {
+            console.log("test button left");
+            const left = document.querySelector("scroll-category");
+            left.scrollBy(200, O);
+        }
+
         leftButton.innerText = "Gauche";
         const rightButton = document.createElement("button");
         rightButton.classList.add("right");
-        leftButton.setAttribute("onclick", "rightScroll()");
         rightButton.innerText = "Droite";
 
+        rightButton.onclick = function() {
+            console.log("test button right");
+            const right = document.querySelector("scroll-category");
+            right.scrollBy(-200, O);
+        }
+
         blocElement.append(categoryTitle, leftButton, categoryElement, rightButton);
+
     } else {
         blocElement.append(categoryTitle, categoryElement);
     }
-
    
-    
-
     for (const index in movies) {
 
         const movieId = movies[index].id;
@@ -67,11 +65,13 @@ async function getMoviesAllData(movies, i) {
             // Create and append Elements for the foreground
             // Class "formodal" helps to list the elements to pass to the modal (js not css need)
             // Class notForCategories helps to manage the visibility or not of elements in categories (css)
+            
+            const imageContainer = document.createElement("figure");
             const imageElement = document.createElement("img");
             imageElement.classList.add("forModal");
             imageElement.src = (movieData.image_url ? movieData.image_url : "");
             imageElement.setAttribute("onerror", "this.onerror=null; this.src='img/pochette_indisponible.jpeg'");
-            imageElement.setAttribute("title", "Pochette du film");
+            imageElement.setAttribute("alt", "Pochette du film");
 
 
             // open the modal when click on image
@@ -86,6 +86,8 @@ async function getMoviesAllData(movies, i) {
                 containerElement.appendChild(newDiv);
                 modal.style.display = "block";
             };
+
+            imageContainer.appendChild(imageElement);
 
             const titleElement = document.createElement("h2");
             titleElement.classList.add("forModal", "forBest");
@@ -130,7 +132,7 @@ async function getMoviesAllData(movies, i) {
             longDescriptionElement.classList.add("forModal", "onlyForModal");
             longDescriptionElement.innerText = "Description : " + (movieData.long_description ? movieData.long_description : "");
 
-            movieElement.append(imageElement,
+            movieElement.append(imageContainer,
                 titleElement, 
                 descriptionElement,
                 typeElement,
