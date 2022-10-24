@@ -4,7 +4,7 @@ const apiUri = 'http://127.0.0.1:8000/api/v1/titles/'; // Root of the API url
 // {id: {categorieName : "", endPoint: "", firstItem: index, numberItems: nb}}}
 const parameters = [
     { htmlId: "best", categoryName: "En vedette", endPoint: '?sort_by=-imdb_score', firstItem: 0, numberItems: 1 },
-    { htmlId: "category1", categoryName: "Films les mieux notés", endPoint: '?sort_by=-imdb_score', firstItem: 1, numberItems: 8 },
+    { htmlId: "category1", categoryName: "Films les mieux notés", endPoint: '?sort_by=-imdb_score', firstItem: 1, numberItems: 14 },
     { htmlId: "category2", categoryName: "Animation", endPoint: '?genre=animation&sort_by=-imdb_score', firstItem: 0, numberItems: 7 },
     { htmlId: "category3", categoryName: "Mystery", endPoint: '?genre=mystery&sort_by=-imdb_score', firstItem: 0, numberItems: 7 },
     { htmlId: "category4", categoryName: "Western", endPoint: '?genre=western&sort_by=-imdb_score', firstItem: 0, numberItems: 14 }
@@ -26,6 +26,7 @@ async function getMoviesAllData(movies, i) {
   
     const categoryElement = document.createElement("div");
     categoryElement.classList.add("scroll-category");
+    categoryElement.setAttribute("id", "cat" + i);
     
     // Create the left and right scroll buttons for the categories.
     if (i != 0) {
@@ -34,8 +35,8 @@ async function getMoviesAllData(movies, i) {
         leftButton.innerHTML = "<i class='fas fa-angle-double-left'></i>";
 
         leftButton.onclick = function() {
-            const left = document.querySelector(".scroll-category");
-            left.scrollBy({left: 200});
+            const left = document.getElementById("cat" + i);
+            left.scrollBy(200, 0);
             console.log("test leftButton"); // test
         }   
 
@@ -44,8 +45,8 @@ async function getMoviesAllData(movies, i) {
         rightButton.innerHTML = "<i class='fas fa-angle-double-right'></i>";
 
         rightButton.onclick = function() {
-            const right = document.querySelector(".scroll-category");
-            right.scrollBy({right: -200});
+            const right = document.getElementById("cat" + i);
+            right.scrollBy(-200, 0);
             console.log("test rightButton"); // test
         }
 
@@ -72,6 +73,7 @@ async function getMoviesAllData(movies, i) {
             imageElement.classList.add("forModal");
             imageElement.src = (movieData.image_url ? movieData.image_url : "");
             imageElement.setAttribute("onerror", "this.onerror=null; this.src='img/pochette_indisponible.jpeg'");
+            imageElement.setAttribute("title", movieData.title);
             imageElement.setAttribute("alt", "Pochette du film");
 
 

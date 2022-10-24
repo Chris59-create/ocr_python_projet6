@@ -13,23 +13,30 @@
     display: none;
   }
     .scroll-category {
-      //width: auto;
-      //height: auto;
+      width: 90%;
+      height: auto;
+      margin: auto;
+      
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
       overflow-x: scroll;
       overflow-y: hidden;
       scroll-behavior: smooth;
+      ::-webkit-scrollbar {
+        width: 5px;
+        height: 8px;
+        background-color: #aaa;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: black;
+      }
     }
-    ::-webkit-scrollbar {
-      width: 5px;
-      height: 8px;
-      background-color: #aaa;
-    }
-    ::-webkit-scrollbar-thumb {
-      background-color: black;
-    }
+      .movie {
+        margin-left: 1px;
+        margin-right: 1px;
+        }
+   
     .cover {
       padding: 0px 30px;
       position: relative;
@@ -52,7 +59,11 @@
       outline: none;
       font-size: xx-large;
       cursor: pointer;
+      :hover {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
     }
+      
   }
 
 
