@@ -12,48 +12,49 @@
   .forBest {
     display: none;
   }
-  .scroll-category {
-    width: 100%;
-    height: auto;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    overflow-x: scroll;
-    overflow-y: hidden;
-    scroll-behavior: smooth;
-  }
-  ::-webkit-scrollbar {
-    width: 5px;
-    height: 8px;
-    background-color: #aaa;
-  }
-  ::-webkit-scrollbar-thumb {
-    background-color: black;
+    .scroll-category {
+      //width: auto;
+      //height: auto;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+    }
+    ::-webkit-scrollbar {
+      width: 5px;
+      height: 8px;
+      background-color: #aaa;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: black;
+    }
+    .cover {
+      padding: 0px 30px;
+      position: relative;
+    }
+    .left {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .right {
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    button {
+      background-color: transparent;
+      border: none;
+      outline: none;
+      font-size: xx-large;
+      cursor: pointer;
+    }
   }
 
-  .cover {
-    padding: 0px 30px;
-    position: relative;
-  }
-  .left {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    /*transform: translateY(-50%);*/
-  }
-  .right {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    /*transform: translateY(-50%);*/
-  }
-  .movie {
-    width: 200px;
-    margin:  px;
-    overflow: hidden;
-  }
-
-}
 
 
 /* Modal*/

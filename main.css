@@ -10,8 +10,6 @@
   display: none;
 }
 .categories .scroll-category {
-  width: 100%;
-  height: auto;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -35,18 +33,20 @@
   position: absolute;
   left: 0;
   top: 50%;
-  /*transform: translateY(-50%);*/
+  transform: translateY(-50%);
 }
 .categories .right {
   position: absolute;
   right: 0;
   top: 50%;
-  /*transform: translateY(-50%);*/
+  transform: translateY(-50%);
 }
-.categories .movie {
-  width: 200px;
-  margin: px;
-  overflow: hidden;
+.categories button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  font-size: xx-large;
+  cursor: pointer;
 }
 
 /* Modal*/

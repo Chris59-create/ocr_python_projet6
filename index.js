@@ -24,28 +24,29 @@ async function getMoviesAllData(movies, i) {
     
 
   
-    const categoryElement = document.createElement("ul");
+    const categoryElement = document.createElement("div");
     categoryElement.classList.add("scroll-category");
     
     // Create the left and right scroll buttons for the categories.
     if (i != 0) {
         const leftButton = document.createElement("button");
         leftButton.classList.add("left");
-        leftButton.onclick = function() {
-            console.log("test button left");
-            const left = document.querySelector("scroll-category");
-            left.scrollBy(200, O);
-        }
+        leftButton.innerHTML = "<i class='fas fa-angle-double-left'></i>";
 
-        leftButton.innerText = "Gauche";
+        leftButton.onclick = function() {
+            const left = document.querySelector(".scroll-category");
+            left.scrollBy({left: 200});
+            console.log("test leftButton"); // test
+        }   
+
         const rightButton = document.createElement("button");
         rightButton.classList.add("right");
-        rightButton.innerText = "Droite";
+        rightButton.innerHTML = "<i class='fas fa-angle-double-right'></i>";
 
         rightButton.onclick = function() {
-            console.log("test button right");
-            const right = document.querySelector("scroll-category");
-            right.scrollBy(-200, O);
+            const right = document.querySelector(".scroll-category");
+            right.scrollBy({right: -200});
+            console.log("test rightButton"); // test
         }
 
         blocElement.append(categoryTitle, leftButton, categoryElement, rightButton);
@@ -66,7 +67,7 @@ async function getMoviesAllData(movies, i) {
             // Class "formodal" helps to list the elements to pass to the modal (js not css need)
             // Class notForCategories helps to manage the visibility or not of elements in categories (css)
             
-            const imageContainer = document.createElement("figure");
+            const imageContainer = document.createElement("p");
             const imageElement = document.createElement("img");
             imageElement.classList.add("forModal");
             imageElement.src = (movieData.image_url ? movieData.image_url : "");
@@ -96,7 +97,7 @@ async function getMoviesAllData(movies, i) {
             descriptionElement.classList.add("forBest");
             descriptionElement.innerText = (movieData.description ? movieData.description : "");
 
-            const movieElement = document.createElement("li");
+            const movieElement = document.createElement("div");
             movieElement.classList.add("movie");
            
             //Create and append in the foreground elements for the modal
