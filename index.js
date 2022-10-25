@@ -36,7 +36,7 @@ async function getMoviesAllData(movies, i) {
 
         leftButton.onclick = function() {
             const left = document.getElementById("cat" + i);
-            left.scrollBy(200, 0);
+            left.scrollBy(-200, 0);
             console.log("test leftButton"); // test
         }   
 
@@ -46,7 +46,7 @@ async function getMoviesAllData(movies, i) {
 
         rightButton.onclick = function() {
             const right = document.getElementById("cat" + i);
-            right.scrollBy(-200, 0);
+            right.scrollBy(200, 0);
             console.log("test rightButton"); // test
         }
 
@@ -66,7 +66,7 @@ async function getMoviesAllData(movies, i) {
 
             // Create and append Elements for the foreground
             // Class "formodal" helps to list the elements to pass to the modal (js not css need)
-            // Class notForCategories helps to manage the visibility or not of elements in categories (css)
+            // Classes forBest and onlyForModal help to manage the visibility or not of elements in categories (css)
             
             const imageContainer = document.createElement("p");
             const imageElement = document.createElement("img");
