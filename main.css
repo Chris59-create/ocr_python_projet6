@@ -81,11 +81,27 @@
 
 /* Modal Content/Box */
 .modal-content {
-  background-color: #fefefe;
+  background-color: #1a1717;
   margin: 0% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
+  height: 90%;
+  color: white;
+}
+.modal-content img {
+  height: auto;
+  width: 30%;
+  float: left;
+  margin: 0 2em 2em 0;
+}
+.modal-content h2 {
+  font-size: 3em;
+  font-style: italic;
+  text-align: center;
+}
+.modal-content p {
+  font-size: 1.25em;
 }
 
 /* The Close Button */
