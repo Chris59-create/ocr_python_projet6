@@ -85,7 +85,7 @@
 }
 
 /* Modal Content/Box */
-.modal-content {
+#temporary {
   background-color: #1a1717;
   margin: 0% auto; /* 15% from the top and centered */
   padding: 20px;
@@ -93,10 +93,11 @@
   width: 80%; /* Could be more or less, depending on screen size */
   height: 90%;
   color: white;
+  display: flex;
+  align-items: center;
   img {
     height: auto;
     width: 30%;
-    float: left;
     margin: 0 2em 2em 0;
   }
   h2 {
