@@ -83,9 +83,11 @@ async function getMoviesAllData(movies, i) {
                 const newDiv = document.createElement("div")
                 newDiv.setAttribute("id", "temporary");
                 const imageModal = document.createElement("div");
+                imageModal.classList.add("elementTemporary");
                 imageModal.setAttribute("id", "imageModal");
                 imageModal.appendChild(forModal[0].cloneNode(true));
                 const dataModal = document.createElement("div");
+                dataModal.classList.add("elementTemporary");
                 dataModal.setAttribute("id", "dataModal");
                  for (let index = 1; index < forModal.length; index++) {
                     let modalElement = forModal[index].cloneNode(true);

@@ -85,29 +85,36 @@
 }
 
 /* Modal Content/Box */
-#temporary {
+.modal-content {
   background-color: #1a1717;
   margin: 0% auto; /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
   width: 80%; /* Could be more or less, depending on screen size */
-  height: 90%;
+  height:auto;
   color: white;
-  display: flex;
-  align-items: center;
+  }
+
+#temporary {
+    display: flex;
+    align-items: center;
   img {
     height: auto;
-    width: 30%;
-    margin: 0 2em 2em 0;
+    width: 75%;
   }
   h2 {
     font-size: 3em;
     font-style: italic;
     text-align: center;
-    ;
   }
   p {
     font-size: 1.25em;
+  }
+  .elementTemporary:nth-child(1) {
+    flex: 1;
+  }
+  .elementTemporary:nth-child(2) {
+    flex: 1.2;
   }
 }
 
