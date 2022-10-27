@@ -81,6 +81,7 @@ async function getMoviesAllData(movies, i) {
             imageElement.onclick = function() {
                 const containerElement = document.getElementById("container");
                 const newDiv = document.createElement("div")
+                newDiv.classList.add("displayModalContent")
                 newDiv.setAttribute("id", "temporary");
                 const imageModal = document.createElement("div");
                 imageModal.classList.add("elementTemporary");

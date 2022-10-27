@@ -93,11 +93,26 @@
   width: 80%; /* Could be more or less, depending on screen size */
   height:auto;
   color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+   .displayModalContent:nth-child(1) {
+      order: 1;
+    }
+    .displayModalContent:nth-child(2) {
+      order: 3;
+      align-self:center ;
+    }
+    .displayModalContent:nth-child(3) {
+      order: 2;
+    }
   }
 
 #temporary {
     display: flex;
     align-items: center;
+    border-bottom: solid;   
+    border-color: white;
   img {
     height: auto;
     width: 75%;
@@ -128,7 +143,17 @@
 
 .close:hover,
 .close:focus {
-  color: black;
+  color:rgba(31, 228, 44, 0.8);
   text-decoration: none;
   cursor: pointer;
+}
+
+#closeModalButton {
+  margin-top: 1%;
+  font-size: 1.2em;
+  color:rgb(242, 12, 12);
+  background-color: #1a1717;
+    &:hover {
+    color:rgba(31, 228, 44, 0.8);
+  }
 }
