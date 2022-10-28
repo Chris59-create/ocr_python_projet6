@@ -5,38 +5,34 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>JustStreamIt</title> <link rel="stylesheet" href="main.css">
 		<script type="module" src="index.js"></script>
+
+		<!-- Get the scroll buttons -->
 		<script src="https://kit.fontawesome.com/a59b9b09ab.js" crossorigin="anonymous"></script>
+
 	</head>
 	<body>
 		<header>
 			<img src="./img/logo.jpg" alt="LOGO">
 		</header>
-		<aside id="best">	
-			
-		</aside>
-	
+
+		<!-- Block for the best movies of all. Filled by index.js -->
+		<aside id="best"></aside>
+
+		<!-- Container for the 4 categories of movies. Filled by index.js -->
 		<section class ="categories">
 			
-			<div class="cover" id="category1">				
-			</div>
-
-			<div class="cover" id="category2">
-			</div>
-	
-			<div class="cover" id="category3">
-			</div>
-
-			<div class="cover" id="category4" >
-			</div>
-
-			<div id="errors">
-			</div>
+			<div class="cover" id="category1"></div>				
+			<div class="cover" id="category2"></div>
+			<div class="cover" id="category3"></div>			
+			<div class="cover" id="category4" ></div>
 			
+			<!-- block to display the possible catched fetch errors -->
+			<div id="errors"></div>
+						
 		</section>
 		
 		<!-- The Modal -->
 		<article id="myModal" class="modal">
-
 			
 			<!-- Modal content -->
 			<div class="modal-content" id="container">
