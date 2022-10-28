@@ -19,13 +19,21 @@ header img {
 }
 
 #best {
+  position: relative;
   border-top-style: dashed;
   border-bottom-style: dashed;
+}
+#best h1 {
+  position: absolute;
+  top: 0%;
+  right: 60%;
+  font-size: 2.5em;
+  font-style: italic;
 }
 
 #toModal {
   position: relative;
-  left: 50%;
+  left: 47%;
   margin-bottom: 1%;
   font-size: 1.25em;
 }
