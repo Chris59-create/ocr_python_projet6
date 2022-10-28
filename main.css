@@ -18,6 +18,11 @@ header img {
   display: block;
 }
 
+#best {
+  border-top-style: dashed;
+  border-bottom-style: dashed;
+}
+
 .categories .forBest {
   display: none;
 }
