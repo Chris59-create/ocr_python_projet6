@@ -7,6 +7,7 @@ header {
   text-align: center;
   img {
     width: 10%;
+    margin-bottom: 1%;
   }
 }
 
@@ -21,20 +22,25 @@ header {
 }
 
 #best {
-  border-top-style: dashed;
-  border-bottom-style: dashed;
   display: flex;
   justify-content: space-around;
+  background-color: rgb(135, 58, 17);
+  h2{
+    text-align: center;
+    margin: auto;
+    font-size: 3em;
+    font-style: oblique;
+    text-shadow: 1px 1px 5px ;
+  }
   .scroll-category {
-   
-    width: 80%;
+    width: 70%;
     .movie {
       position: relative;
-    
-      h1 {
+      background-color: rgb(152, 88, 14);
+        h1 {
         position: absolute;
         top: 0%;
-        right: 60%;
+        left: 25%;
         margin-top: 0%;
         padding-top: 0;
         font-size: 2.5em;
@@ -42,8 +48,8 @@ header {
       }
       img {
         position: relative;
-        left: 75%;
-        width: 25%;
+        left: 70%;
+        width: 30%;
         
       }
     }

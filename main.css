@@ -8,6 +8,7 @@ header {
 }
 header img {
   width: 10%;
+  margin-bottom: 1%;
 }
 
 .onlyForModal {
@@ -19,21 +20,28 @@ header img {
 }
 
 #best {
-  border-top-style: dashed;
-  border-bottom-style: dashed;
   display: flex;
   justify-content: space-around;
+  background-color: rgb(135, 58, 17);
+}
+#best h2 {
+  text-align: center;
+  margin: auto;
+  font-size: 3em;
+  font-style: oblique;
+  text-shadow: 1px 1px 5px;
 }
 #best .scroll-category {
-  width: 80%;
+  width: 70%;
 }
 #best .scroll-category .movie {
   position: relative;
+  background-color: rgb(152, 88, 14);
 }
 #best .scroll-category .movie h1 {
   position: absolute;
   top: 0%;
-  right: 60%;
+  left: 25%;
   margin-top: 0%;
   padding-top: 0;
   font-size: 2.5em;
@@ -41,8 +49,8 @@ header img {
 }
 #best .scroll-category .movie img {
   position: relative;
-  left: 75%;
-  width: 25%;
+  left: 70%;
+  width: 30%;
 }
 
 #toModal {
