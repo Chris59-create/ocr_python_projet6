@@ -62,26 +62,8 @@ async function getMoviesAllData(movies, i) {
         const movieId = movies[index].id;
 
         try {
-            const response = await fetch(apiUri + movieId);
-            const movieData = await response.json();
 
-            /* 
-            Create and append Elements for the foreground
-            Class "formodal" helps to list the elements to pass to the modal (js not css need)
-            Classes forBest and onlyForModal help to manage the visibility or not of elements in categories (css)
-            */
-            
-            const imageContainer = document.createElement("p");
-            const imageElement = document.createElement("img");
-            imageElement.classList.add("forModal");
-            imageElement.src = (movieData.image_url ? movieData.image_url : "");
-            imageElement.setAttribute("onerror", "this.onerror=null; this.src='img/pochette_indisponible.jpeg'");
-            imageElement.setAttribute("title", movieData.title);
-            imageElement.setAttribute("alt", "Pochette du film");
-
-
-            // open the modal when click on image
-            imageElement.addEventListener("click", openModal);
+            //Open the modal
             function openModal() {
                 const containerElement = document.getElementById("container");
                 const newDiv = document.createElement("div")
@@ -103,8 +85,29 @@ async function getMoviesAllData(movies, i) {
                 modal.style.display = "block";
             };
 
+            //Request the API
+            const response = await fetch(apiUri + movieId);
+            const movieData = await response.json();
+
+            /* 
+            Create and append Elements for the foreground
+            Class "formodal" helps to list the elements to pass to the modal (js not css need)
+            Classes forBest and onlyForModal help to manage the visibility or not of elements in categories (css)
+            */
+            
+            const imageContainer = document.createElement("p");
+            const imageElement = document.createElement("img");
+            imageElement.classList.add("forModal");
+            imageElement.src = (movieData.image_url ? movieData.image_url : "");
+            imageElement.setAttribute("onerror", "this.onerror=null; this.src='img/pochette_indisponible.jpeg'");
+            imageElement.setAttribute("title", movieData.title);
+            imageElement.setAttribute("alt", "Pochette du film");
+
             imageContainer.appendChild(imageElement);
 
+            // open the modal when click on image
+            imageElement.addEventListener("click", openModal);
+            
             const titleElement = document.createElement("h2");
             titleElement.classList.add("forModal", "forBest");
             titleElement.innerText = (movieData.title ? movieData.title : "");
