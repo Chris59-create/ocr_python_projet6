@@ -23,6 +23,13 @@ header img {
   border-bottom-style: dashed;
 }
 
+#toModal {
+  position: relative;
+  left: 50%;
+  margin-bottom: 1%;
+  font-size: 1.25em;
+}
+
 .categories .forBest {
   display: none;
 }
