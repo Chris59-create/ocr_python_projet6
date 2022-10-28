@@ -108,7 +108,7 @@ async function getMoviesAllData(movies, i) {
             // open the modal when click on image
             imageElement.addEventListener("click", openModal);
             
-            const titleElement = document.createElement("h2");
+            const titleElement = document.createElement("h1");
             titleElement.classList.add("forModal", "forBest");
             titleElement.innerText = (movieData.title ? movieData.title : "");
             const descriptionElement = document.createElement("p");
