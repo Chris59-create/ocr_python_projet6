@@ -113,6 +113,7 @@ async function getMoviesAllData(movies, i) {
             titleElement.innerText = (movieData.title ? movieData.title : "");
             const descriptionElement = document.createElement("p");
             descriptionElement.classList.add("forBest");
+            descriptionElement.setAttribute("id", "shortDescription");
             descriptionElement.innerText = (movieData.description ? movieData.description : "");
 
             const movieElement = document.createElement("div");
