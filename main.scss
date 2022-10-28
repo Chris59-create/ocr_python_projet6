@@ -47,7 +47,7 @@ header {
       }
       #shortDescription {
         position: absolute;
-        top: 20%;
+        top: 30%;
         width: 40%;
         padding-left: 15%;
         padding-right: 15%;
@@ -59,15 +59,16 @@ header {
         left: 70%;
         width: 30%;
       }
+      #toModal {
+        position: absolute;
+        bottom: 0%;
+        width: 70%;
+        margin-bottom: 1%;
+        font-size: 1.25em;
+        margin-bottom: 0%;
+      }
     }
   }
-}
-
-#toModal {
-  position: relative;
-  left: 40%;
-  margin-bottom: 1%;
-  font-size: 1.25em;
 }
 
 .categories {
