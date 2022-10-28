@@ -187,20 +187,26 @@ async function getMoviesAllData(movies, i) {
                 btnToModal.addEventListener("click", openModal);
             }
 
-            // When the user clicks on <span> (x), close the modal
-            span.onclick = function() {
+            // Close the modal
+            function closeModal() {
                 const toRemove = document.getElementById("temporary");
                 toRemove.remove();
                 modal.style.display = "none";
             }
+
+            // When the user clicks on <span> (x), close the modal
+            span.onclick = closeModal;
+                
+         
             // When the user clicks anywhere outside of the modal, close it
             window.onclick = function(event) {
                 if (event.target == modal) {
-                    const toRemove = document.getElementById("temporary");
-                    toRemove.remove();
-                    modal.style.display = "none";
+                    closeModal();
                 }
             }
+            // When the user click on close button, close the modal
+            const closeModalButton = document.getElementById("closeModalButton");
+            closeModalButton.onclick = closeModal;
 
 
         } catch (err) {
