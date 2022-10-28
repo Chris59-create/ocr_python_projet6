@@ -1,3 +1,15 @@
+body {
+  background-color: rgb(90, 7, 7);
+  color: white;
+}
+
+header {
+  text-align: center;
+}
+header img {
+  width: 10%;
+}
+
 .onlyForModal {
   display: none;
 }
