@@ -83,14 +83,6 @@ header img {
   overflow-y: hidden;
   scroll-behavior: smooth;
 }
-.categories .scroll-category ::-webkit-scrollbar {
-  width: 5px;
-  height: 8px;
-  background-color: #aaa;
-}
-.categories .scroll-category ::-webkit-scrollbar-thumb {
-  background-color: black;
-}
 .categories .movie {
   margin-left: 1px;
   margin-right: 1px;
