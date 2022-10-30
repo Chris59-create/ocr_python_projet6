@@ -11,18 +11,12 @@ header img {
   margin-bottom: 1%;
 }
 
-.onlyForModal {
-  display: none;
-}
-
-.modal-content .onlyForModal {
-  display: block;
-}
-
+/* Lays out the block displaying the best movie */
 #best {
   display: flex;
   justify-content: space-around;
   background-color: rgb(135, 58, 17);
+  /* The block and child block which contains image, title and short description */
 }
 #best h2 {
   text-align: center;
@@ -37,6 +31,7 @@ header img {
 #best .scroll-category .movie {
   position: relative;
   background-color: rgb(152, 88, 14);
+  /* Lays out button to open modal */
 }
 #best .scroll-category .movie h1 {
   position: absolute;
@@ -69,6 +64,7 @@ header img {
   margin-bottom: 0%;
 }
 
+/* Lays out the category with their movies ans scroll arrows */
 .categories .forBest {
   display: none;
 }
@@ -115,22 +111,27 @@ header img {
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-/* Modal*/
-#openModal {
-  width: 5em;
-  height: 2em;
+/* Modal */
+/* Hide in the main window the elements only to shown in the modal */
+.onlyForModal {
+  display: none;
+}
+
+/* Display the elements in the modal */
+.modal-content .onlyForModal {
+  display: block;
 }
 
 /* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  display: none;
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
+  width: 100%;
+  height: 100%;
+  overflow: auto;
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
@@ -138,15 +139,18 @@ header img {
 /* Modal Content/Box */
 .modal-content {
   background-color: #1a1717;
-  margin: 0% auto; /* 15% from the top and centered */
+  margin: 0% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%;
   height: auto;
   color: white;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  /* first left the image of the movie */
+  /* At the end (bottom) the close button */
+  /* On the right of the image the data of the movie */
 }
 .modal-content .displayModalContent:nth-child(1) {
   order: 1;
@@ -159,11 +163,13 @@ header img {
   order: 2;
 }
 
+/* Lays out the visible part of the modal */
 #temporary {
   display: flex;
   align-items: center;
   border-bottom: solid;
   border-color: white;
+  /* Dimensions the block image relative to the block data*/
 }
 #temporary img {
   height: auto;
@@ -185,7 +191,7 @@ header img {
   flex: 1.2;
 }
 
-/* The Close Button */
+/* The Close  X Button */
 .close {
   color: rgb(242, 12, 12);
   float: right;
