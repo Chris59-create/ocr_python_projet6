@@ -76,14 +76,13 @@ header {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;
-      overflow-x: scroll;
-      overflow-y: hidden;
+      overflow: hidden;
       scroll-behavior: smooth;
     }
-      .movie {
-        margin-left: 1px;
-        margin-right: 1px;
-        }   
+    .movie {
+      margin-left: 1px;
+      margin-right: 1px;
+    }
     .cover {
       padding: 0px 30px;
       position: relative;

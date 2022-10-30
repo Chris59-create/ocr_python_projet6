@@ -71,8 +71,7 @@ header img {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  overflow-x: scroll;
-  overflow-y: hidden;
+  overflow: hidden;
   scroll-behavior: smooth;
 }
 .categories .movie {
