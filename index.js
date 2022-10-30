@@ -5,10 +5,10 @@ const apiUri = 'http://127.0.0.1:8000/api/v1/titles/'; // Root of the API url
 // {id: {categorieName : "", endPoint: "", firstItem: index, numberItems: nb}}}
 const parameters = [
     { htmlId: "best", categoryName: "En vedette", endPoint: '?sort_by=-imdb_score', firstItem: 0, numberItems: 1 },
-    { htmlId: "category1", categoryName: "Films les mieux notés", endPoint: '?sort_by=-imdb_score', firstItem: 1, numberItems: 14 },
+    { htmlId: "category1", categoryName: "Films les mieux notés", endPoint: '?sort_by=-imdb_score', firstItem: 1, numberItems: 8 },
     { htmlId: "category2", categoryName: "Animation", endPoint: '?genre=animation&sort_by=-imdb_score', firstItem: 0, numberItems: 7 },
     { htmlId: "category3", categoryName: "Mystery", endPoint: '?genre=mystery&sort_by=-imdb_score', firstItem: 0, numberItems: 7 },
-    { htmlId: "category4", categoryName: "Western", endPoint: '?genre=western&sort_by=-imdb_score', firstItem: 0, numberItems: 14 }
+    { htmlId: "category4", categoryName: "Western", endPoint: '?genre=western&sort_by=-imdb_score', firstItem: 0, numberItems: 7 }
 ];
 
 // Initialize the modal and the its close button
@@ -37,7 +37,6 @@ async function getMoviesAllData(movies, i) {
         leftButton.onclick = function() {
             const left = document.getElementById("cat" + i);
             left.scrollBy(-200, 0);
-            console.log("test leftButton"); // test
         }   
 
         const rightButton = document.createElement("button");
@@ -47,7 +46,6 @@ async function getMoviesAllData(movies, i) {
         rightButton.onclick = function() {
             const right = document.getElementById("cat" + i);
             right.scrollBy(200, 0);
-            console.log("test rightButton"); // test
         }
 
         blocElement.append(categoryTitle, leftButton, categoryElement, rightButton);
