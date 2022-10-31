@@ -61,26 +61,41 @@ header img {
   margin-bottom: 0%;
 }
 
+.categories {
+  height: 100%;
+}
 .categories .forBest {
   display: none;
 }
 .categories .scroll-category {
   width: 90%;
-  height: auto;
+  height: 80%;
   margin: auto;
   display: flex;
+  align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
   overflow: hidden;
   scroll-behavior: smooth;
 }
 .categories .movie {
+  width: auto;
+  height: 100%;
   margin-left: 1px;
   margin-right: 1px;
 }
+.categories .movie p:first-child {
+  height: 100%;
+  width: auto;
+}
+.categories .movie img {
+  height: 100%;
+  width: auto;
+}
 .categories .cover {
-  padding: 0px 30px;
+  height: 450px;
   position: relative;
+  padding: 0px 30px;
 }
 .categories .left {
   position: absolute;

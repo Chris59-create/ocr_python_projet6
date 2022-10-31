@@ -61,7 +61,7 @@ async function getMoviesAllData(movies, i) {
 
         try {
 
-            //Open the modal
+            //Clone the elements for the modal and open the modal
             function openModal() {
                 const containerElement = document.getElementById("container");
                 const newDiv = document.createElement("div")
