@@ -282,7 +282,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "sass": "sass --watch ./sass/main.scss:./public/css/styles.css"
+    "sass": "sass ./sass/main.scss:./public/css/main.css -w --style compressed",
+    "prefix": "postcss main.css --use autoprefixer -d ./prefixed/"
   },
   "repository": {
     "type": "git",
@@ -290,6 +291,7 @@
   },
   "author": "",
   "license": "ISC",
+  "browserslist": "last 4 versions",
   "bugs": {
     "url": "https://github.com/Chris59-create/ocr_python_projet6/issues"
   },
