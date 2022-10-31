@@ -121,39 +121,39 @@ async function getMoviesAllData(movies, i) {
 
             const typeElement = document.createElement("p");
             typeElement.classList.add("forModal", "onlyForModal");
-            typeElement.innerText = "Genre(s): " + (movieData.genres ? movieData.genres : "" );
+            typeElement.innerText = "Genre(s) : " + (movieData.genres ? movieData.genres : "" );
 
             const releaseDateElement = document.createElement("p");
             releaseDateElement.classList.add("forModal", "onlyForModal");
-            releaseDateElement.innerText = "Année: " + (movieData.year ? movieData.year : "");
+            releaseDateElement.innerText = "Année : " + (movieData.year ? movieData.year : "");
 
             const rateElement = document.createElement("p");
             rateElement.classList.add("forModal", "onlyForModal");
-            rateElement.innerText = "Evaluation: " + (movieData.rated ? movieData.rated: "");
+            rateElement.innerText = "Evaluation : " + (movieData.rated ? movieData.rated: "");
 
             const imdbElement = document.createElement("p");
             imdbElement.classList.add("forModal", "onlyForModal");
-            imdbElement.innerText = "Imdb_score: " + (movieData.imdb_score ? movieData.imdb_score : "");
+            imdbElement.innerText = "Score Imdb : " + (movieData.imdb_score ? movieData.imdb_score : "");
 
             const directorElement = document.createElement("p");
             directorElement.classList.add("forModal", "onlyForModal");
-            directorElement.innerText = "Réalisateur(s): " + (movieData.directors ? movieData.directors : "");
+            directorElement.innerText = "Réalisateur(s) : " + (movieData.directors ? movieData.directors : "");
 
             const actorsElement = document.createElement("p");
             actorsElement.classList.add("forModal", "onlyForModal");
-            actorsElement.innerText = "Acteurs: " + (movieData.actors ? movieData.actors : "");
+            actorsElement.innerText = "Acteurs : " + (movieData.actors ? movieData.actors : "");
 
             const durationElement = document.createElement("p");
             durationElement.classList.add("forModal", "onlyForModal");
-            durationElement.innerText = "Durée: " + (movieData.duration ? movieData.duration + "mn" : "");
+            durationElement.innerText = "Durée : " + (movieData.duration ? movieData.duration + "mn" : "");
 
             const countriesElement = document.createElement("p");
             countriesElement.classList.add("forModal", "onlyForModal");
-            countriesElement.innerText = "Pays: " + (movieData.countries ? movieData.countries : "");
+            countriesElement.innerText = "Pays : " + (movieData.countries ? movieData.countries : "");
 
             const boxOfficeElement = document.createElement("p");
             boxOfficeElement.classList.add("forModal", "onlyForModal");
-            boxOfficeElement.innerText = "Box office: " + (movieData.worldwide_gross_income ? movieData.worldwide_gross_income + "$" : "");
+            boxOfficeElement.innerText = "Box office  : " + (movieData.worldwide_gross_income ? movieData.worldwide_gross_income + "$" : "");
 
             const longDescriptionElement = document.createElement("p");
             longDescriptionElement.classList.add("forModal", "onlyForModal");
