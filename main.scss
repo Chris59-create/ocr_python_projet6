@@ -168,10 +168,11 @@ header {
   }
 // Lays out the visible part of the modal
 #temporary {
-    display: flex;
-    align-items: center;
-    border-bottom: solid;   
-    border-color: white;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  border-bottom: solid;   
+  border-color: white;
   img {
     height: auto;
     width: 75%;
