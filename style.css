@@ -41,7 +41,7 @@ header img {
   font-size: 2.5em;
   font-style: italic;
 }
-#best .scroll-category .movie #shortDescription {
+#best .scroll-category .movie .shortDescription {
   position: absolute;
   top: 30%;
   width: 40%;
